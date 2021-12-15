@@ -71,8 +71,8 @@ const Chart = ({data, heading, xAxis, yAxis}) => {
             <stop offset="98%" stopColor="#8884d8" stopOpacity={0}/>
           </linearGradient>
         </defs>
-        <CartesianGrid strokeDasharray="3 3"  stroke={theme.palette.divider} />
-        {/* <XAxis dataKey={xAxis} stroke={theme.palette.text.secondary} /> */}
+        {/* <CartesianGrid strokeDasharray="3 3"  stroke={theme.palette.divider} /> */}
+        <XAxis dataKey={xAxis} stroke={theme.palette.text.secondary} />
         <YAxis mirror={true} stroke={theme.palette.text.secondary}  />
         <Tooltip 
           contentStyle={{
