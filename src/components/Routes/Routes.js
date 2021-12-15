@@ -51,7 +51,7 @@ export const Routes = () => {
 const MyRoutes = () => {
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+    <Box component="main" sx={{ flexGrow: 1, p: 1, overflow: 'hidden' }}>
       <DrawerHeader />
       <Paper elevation={0}>
 

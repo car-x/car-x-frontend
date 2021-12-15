@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -12,7 +12,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Routes } from './../Routes/Routes';
-
+import themeContext from '../../context/Theme/ThemeContext';
+import { useState } from 'react';
+import { Avatar, Box, Menu, MenuItem, Tooltip } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -82,9 +86,19 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function MiniDrawer() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  
+  const [open, setOpen] = useState(false);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
+  
+  let myTheme = useContext(themeContext);
+
+  const avatarMenu = ['Account', 'Dashboard', 'Notification', 'Logout'];
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -96,7 +110,7 @@ export default function MiniDrawer() {
   return (
     <>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} color='secondary' enableColorOnDark>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -113,6 +127,45 @@ export default function MiniDrawer() {
           <Typography variant="h6" noWrap component="div">
             Car-X
           </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            
+          </Typography>
+          <Box sx={{ flexGrow: 0 }}>
+            {/* Theme Toggler Button */}
+            <Tooltip title="Theme Change">
+              <IconButton sx={{ mr: 1 }} onClick={myTheme.themeToggler} color="inherit">
+                {myTheme.state === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Open settings">
+              {/* Avatar Button */}
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {avatarMenu.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
