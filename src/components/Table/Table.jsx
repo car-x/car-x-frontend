@@ -191,7 +191,7 @@ export default function EnhancedTable ({rows, headCells}) {
         <TablePagination
           rowsPerPageOptions={[25, 50, 100]}
           component="div"
-          count={rows.length}
+          count={rows?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

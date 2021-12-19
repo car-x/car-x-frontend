@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Chart = ({data, heading, xAxis, yAxis}) => {
+const Chart = ({data, heading, xAxis, yAxis, width, height}) => {
   
 
   const theme = useTheme();
@@ -50,20 +50,24 @@ const Chart = ({data, heading, xAxis, yAxis}) => {
   };
 
   useEffect(() => {
-    let p = [...data].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-    setPoints(p);
-    console.log('Changed!');
+    if(data){
+      let p = [...data].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+      setPoints(p);
+      console.log('Changed!');
+    }
     // console.log(JSON.stringify(p));
   }, [ data, page, rowsPerPage]);
 
   useEffect(()=>{
+    if(data){
     let totalPage = Math.ceil(data.length / rowsPerPage );
-    setPage(totalPage-1);
+    setPage(totalPage > 0 ? totalPage -1 : 0);
     console.log('Changed 2!');
-  },[data.length, rowsPerPage]);
+    }
+  },[data, rowsPerPage]);
 
   let graph = (graphType === 'Area') ? 
-    (<ResponsiveContainer width={'95%'} height={'30%'} minHeight={180}  >
+    (<ResponsiveContainer width={width} height={'30%'} minHeight={180}  >
       <AreaChart data={points}>
         <defs>
           <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
@@ -83,7 +87,7 @@ const Chart = ({data, heading, xAxis, yAxis}) => {
       </AreaChart>
     </ResponsiveContainer> )
     : (graphType === 'Line') ? 
-    (<ResponsiveContainer width={'95%'} height={'30%'} minHeight={180}  >
+    (<ResponsiveContainer width={width} height={height} minHeight={180}  >
       <LineChart data={points} >
         <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.divider} />
         <XAxis dataKey={xAxis} stroke={theme.palette.text.secondary} />
@@ -97,7 +101,7 @@ const Chart = ({data, heading, xAxis, yAxis}) => {
         <Legend align="left" verticalAlign="bottom" margin={{ top: 10, left: 0, right: 0, bottom: 0 }} />
       </LineChart>
     </ResponsiveContainer>)
-    : (<ResponsiveContainer width={'95%'} height={'30%'} minHeight={180}  >
+    : (<ResponsiveContainer width={width} height={height} minHeight={180}  >
         <BarChart data={points}>
           <CartesianGrid strokeDasharray="3 3"  stroke={theme.palette.divider} />
           <XAxis dataKey={xAxis} stroke={theme.palette.text.secondary} />
@@ -145,16 +149,16 @@ const Chart = ({data, heading, xAxis, yAxis}) => {
           {graph}
         </Grid>
         <Grid item xs={12}>
-            <TablePagination
-              rowsPerPageOptions={[25, 50, 100]}
-              component="div"
-              count={data.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              labelRowsPerPage = 'Points Limit'
-            />
+          <TablePagination
+            rowsPerPageOptions={[25, 50, 100]}
+            component="div"
+            count={data?.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            labelRowsPerPage = 'Points Limit'
+          />
         </Grid>
       </Grid>
     </Paper>
