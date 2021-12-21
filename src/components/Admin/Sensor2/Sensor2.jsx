@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 import Chart from './../Chart/Chart.jsx'
 import Table from './../Table/Table';
-import DataContext from './../../context/Data/DataContext';
+import DataContext from '../../../context/Data/DataContext';
 
 const Sensor2 = () => {
 
   let data = useContext(DataContext);
-  console.log(data);
+  // console.log(data);
   const headCells = [
     {
       name: 'time',

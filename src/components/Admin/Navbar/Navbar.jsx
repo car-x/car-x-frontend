@@ -12,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Routes } from './../Routes/Routes';
-import themeContext from '../../context/Theme/ThemeContext';
+import themeContext from '../../../context/Theme/ThemeContext';
 import { useState } from 'react';
 import { Avatar, Box, Menu, MenuItem, Tooltip } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -106,6 +106,8 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  console.log("Navbar JSX");
 
   return (
     <>

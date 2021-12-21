@@ -53,7 +53,7 @@ const Chart = ({data, heading, xAxis, yAxis, width, height}) => {
     if(data){
       let p = [...data].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
       setPoints(p);
-      console.log('Changed!');
+      // console.log('data, page, rowsPerPage Changed!');
     }
     // console.log(JSON.stringify(p));
   }, [ data, page, rowsPerPage]);
@@ -62,7 +62,7 @@ const Chart = ({data, heading, xAxis, yAxis, width, height}) => {
     if(data){
     let totalPage = Math.ceil(data.length / rowsPerPage );
     setPage(totalPage > 0 ? totalPage -1 : 0);
-    console.log('Changed 2!');
+    // console.log('data, rowsPerPage Changed!');
     }
   },[data, rowsPerPage]);
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import Chart from './../Chart/Chart.jsx'
 import Table from './../Table/Table';
-import DataContext from './../../context/Data/DataContext';
+import DataContext from '../../../context/Data/DataContext';
 
 const Sensor1 = () => {
   // const data = [
@@ -155,7 +155,7 @@ const Sensor1 = () => {
   // ];
 
   let data = useContext(DataContext);
-  console.log(data);
+  // console.log(data);
   const headCells = [
     {
       name: 'time',
@@ -166,6 +166,7 @@ const Sensor1 = () => {
       label: 'Temperature',
     }
   ];
+  console.log("Sensor 1 JSX");
   return (
     <div>
       <h2 className='text-center underline' >Temperature Sensor</h2>

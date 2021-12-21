@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, ListItem, ListItemIcon, ListItemText, Paper } from '@mui/material';
 import Dashboard from './../Dashboard/Dashboard';
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { DrawerHeader } from './../Navbar/Navbar';
 import Sensor1 from './../Sensor1/Sensor1';
 import Sensor2 from './../Sensor2/Sensor2';
@@ -29,11 +29,13 @@ const routes =
 
 export const Routes = () => {
   let history = useHistory();
+  let { path } = useRouteMatch();
+
   return (
     <>
       {
         routes.map((route, index) => (
-          <ListItem button key={route.name} onClick={() => history.push(route.path)}>
+          <ListItem button key={route.name} onClick={() => history.push(`${path}${route.path}`)}>
             <ListItemIcon>
               {route.icon ? route.icon : <Sensors />}
             </ListItemIcon>
@@ -45,11 +47,9 @@ export const Routes = () => {
   )
 }
 
-
-
-
 const MyRoutes = () => {
-
+  let { path } = useRouteMatch();
+  console.log("Route JSX");
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 1, overflow: 'hidden' }}>
       <DrawerHeader />
@@ -57,14 +57,11 @@ const MyRoutes = () => {
 
         {/* My Routes */}
         <Switch>
-          <Route path="/sensor1">
-            <Sensor1 />
-          </Route>
-          <Route path="/sensor2">
-            <Sensor2 />
-          </Route>
-          <Route path="/">
-            <Dashboard />
+          <Route exact path={path} component={Dashboard} />
+          <Route path={`${path}/sensor1`} component={Sensor1} />
+          <Route path={`${path}/sensor2`} component={Sensor2} />
+          <Route path={path} >
+            <h1>Wrong</h1>
           </Route>
         </Switch>
 

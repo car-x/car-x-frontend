@@ -1,9 +1,11 @@
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
-import { BrowserRouter } from 'react-router-dom';
-import Routes from './components/Routes/Routes';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MyStates from './context/State/State';
 import MyThemeProvider from './context/Theme/MyThemeProvider';
+import Home from './components/Home/Home';
+import Admin from './components/Admin/Admin';
+import Login from './components/Login/Login';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
@@ -11,8 +13,14 @@ function App() {
       <BrowserRouter>
         <MyStates>
           <MyThemeProvider>
-            <Navbar />
-            <Routes />
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" exact component={Login} />
+              <PrivateRoute path="/admin"><Admin /></PrivateRoute>
+              <Route path="/" >
+                <h1>Wrong</h1>
+              </Route>
+            </Switch>
           </MyThemeProvider>
         </MyStates>
       </BrowserRouter>
