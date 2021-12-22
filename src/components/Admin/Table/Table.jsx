@@ -27,13 +27,14 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
+    paddingLeft: theme.spacing(0),
     paddingRight: theme.spacing(2),
     width: '100%',
-    // overflow: 'scroll',
-    maxWidth: '100%'
+    overflow: 'scroll',
   },
-
+  Table:{[theme.breakpoints.down('sm')]: {
+    marginLeft: '40%',
+  }}
 }));
 
 function descendingComparator(a, b, orderBy) {
@@ -75,7 +76,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
+        {headCells?.map((headCell) => (
           <TableCell
             key={headCell.name}
             align='center'
@@ -137,12 +138,13 @@ export default function EnhancedTable ({rows, headCells}) {
           <Table
             aria-labelledby="tableTitle"
             size={'medium'}
+            className={classes.Table}
           >
             <EnhancedTableHead
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={rows?.length}
               headCells={headCells}
               
             />

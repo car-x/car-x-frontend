@@ -18,6 +18,7 @@ const UserState = (props) => {
       __v: 0
     });
   }, [])
+  console.log(user);
 
   // setTimeout(() => {
   //   setUser({ message: 'LOL' })

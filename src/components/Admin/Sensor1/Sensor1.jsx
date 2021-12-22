@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import Chart from './../Chart/Chart.jsx'
+import Chart from '../ChartComponent/ChartComponent'
 import Table from './../Table/Table';
 import DataContext from '../../../context/Data/DataContext';
 
@@ -164,13 +164,13 @@ const Sensor1 = () => {
     {
       name: 'temp',
       label: 'Temperature',
-    }
+    },
   ];
   console.log("Sensor 1 JSX");
   return (
     <div>
       <h2 className='text-center underline' >Temperature Sensor</h2>
-      <Chart data={data} heading='Temperature vs Time Graph' xAxis='time' yAxis='temp' width='95%' height='30%' />
+      <Chart data={data} heading='Temperature vs Time Graph' xAxis='time' yAxis='temp' width='95%' height='30%' defaultGraph='Area' />
       <Table rows={data} headCells={headCells} />
     </div>
   )

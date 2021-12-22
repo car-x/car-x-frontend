@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import Chart from './../Chart/Chart.jsx'
+import Chart from '../ChartComponent/ChartComponent'
 import Table from './../Table/Table';
 import DataContext from '../../../context/Data/DataContext';
 

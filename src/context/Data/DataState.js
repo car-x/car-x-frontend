@@ -1,19 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import { getDatas } from "../../API";
-import userContext from "../User/UserContext";
+import UserContext from "../User/UserContext";
 import DataContext from "./DataContext";
 
 const DataState = (props) => {
 
   let [data, setData] = useState([]);
-
-  let user = useContext(userContext);
+  console.log(data);
+  let user = useContext(UserContext);
   useEffect(() => {
     const f = async () => {
-      console.log(user);
-      const res = await getDatas({ APIkey: user?.APIkey });
-      // console.log("DATA: ", res);
-      setData(res.data)
+      try {
+        const res = await getDatas({ APIkey: user?.APIkey });
+        setData(res.data)
+      } catch (error) {
+        console.log(error)
+      }
     }
     user && f();
   }, [user])

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, AreaChart, Area, BarChart, Bar } from 'recharts'
 import { Grid, Paper, Typography, TablePagination, FormControl, Select, MenuItem } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useTheme } from '@mui/material/styles';
+import Chart from './Chart/Chart';
 
 const useStyles = makeStyles((theme) => ({
   overFlowDiv: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Chart = ({data, heading, xAxis, yAxis, width, height}) => {
+const ChartComponent = ({data, heading, xAxis, yAxis, width, height, defaultGraph}) => {
   
 
   const theme = useTheme();
@@ -34,11 +34,11 @@ const Chart = ({data, heading, xAxis, yAxis, width, height}) => {
   const [points, setPoints] = useState([{}]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
-  const [graphType, setGraphType] = useState('Area');
+  const [chartType, setChartType] = useState(defaultGraph? defaultGraph : 'Area');
 
   const handleChange = (event) => {
     console.log(event.target.value);
-    setGraphType(event.target.value);
+    setChartType(event.target.value);
   };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -66,56 +66,6 @@ const Chart = ({data, heading, xAxis, yAxis, width, height}) => {
     }
   },[data, rowsPerPage]);
 
-  let graph = (graphType === 'Area') ? 
-    (<ResponsiveContainer width={width} height={'30%'} minHeight={180}  >
-      <AreaChart data={points}>
-        <defs>
-          <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="15%" stopColor="#8884d8" stopOpacity={0.8}/>
-            <stop offset="98%" stopColor="#8884d8" stopOpacity={0}/>
-          </linearGradient>
-        </defs>
-        {/* <CartesianGrid strokeDasharray="3 3"  stroke={theme.palette.divider} /> */}
-        <XAxis dataKey={xAxis} stroke={theme.palette.text.secondary} />
-        <YAxis mirror={true} stroke={theme.palette.text.secondary}  />
-        <Tooltip 
-          contentStyle={{
-            backgroundColor: theme.palette.background.paper,
-            color: theme.palette.text.primary
-          }} />
-        <Area type="monotone" dataKey={yAxis} stroke="#8884d8" fillOpacity={1} fill="url(#color)" />
-      </AreaChart>
-    </ResponsiveContainer> )
-    : (graphType === 'Line') ? 
-    (<ResponsiveContainer width={width} height={height} minHeight={180}  >
-      <LineChart data={points} >
-        <CartesianGrid strokeDasharray="3 3" stroke={theme.palette.divider} />
-        <XAxis dataKey={xAxis} stroke={theme.palette.text.secondary} />
-        <YAxis mirror={true} stroke={theme.palette.text.secondary} />
-        <Tooltip 
-          contentStyle={{
-            backgroundColor: theme.palette.background.paper,
-            color: theme.palette.text.primary
-        }} />
-        <Line type="monotone" dataKey={yAxis} strokeWidth={3} stroke={theme.palette.secondary.dark} />
-        <Legend align="left" verticalAlign="bottom" margin={{ top: 10, left: 0, right: 0, bottom: 0 }} />
-      </LineChart>
-    </ResponsiveContainer>)
-    : (<ResponsiveContainer width={width} height={height} minHeight={180}  >
-        <BarChart data={points}>
-          <CartesianGrid strokeDasharray="3 3"  stroke={theme.palette.divider} />
-          <XAxis dataKey={xAxis} stroke={theme.palette.text.secondary} />
-          <YAxis mirror={true} stroke={theme.palette.text.secondary} />
-          <Tooltip 
-            contentStyle={{
-              backgroundColor: theme.palette.background.paper,
-              color: theme.palette.text.primary
-            }} />
-          <Bar dataKey={yAxis} fill="#82ca9d" />
-          <Legend align="left" verticalAlign="bottom" margin={{ top: 10, left: 0, right: 0, bottom: 0 }} />
-        </BarChart>
-      </ResponsiveContainer>);
-
   return (
     <Paper elevation={2} className={classes.paper}>
       <Grid
@@ -134,7 +84,7 @@ const Chart = ({data, heading, xAxis, yAxis, width, height}) => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={graphType}
+              value={chartType}
               label="Type"
               variant='standard'
               onChange={handleChange}
@@ -146,7 +96,7 @@ const Chart = ({data, heading, xAxis, yAxis, width, height}) => {
           </FormControl>
         </Grid>
         <Grid item xs={12} className={classes.overFlowDiv} >
-          {graph}
+          <Chart width={width} height={height} points={points} chartType={chartType} xAxis={xAxis} yAxis={yAxis} CartesianGridEnable={chartType !== 'Area'} TooltipEnable LegendEnable={chartType !== 'Area'}/>
         </Grid>
         <Grid item xs={12}>
           <TablePagination
@@ -165,4 +115,4 @@ const Chart = ({data, heading, xAxis, yAxis, width, height}) => {
   )
 }
 
-export default Chart
+export default ChartComponent;

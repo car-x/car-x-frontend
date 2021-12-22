@@ -21,7 +21,7 @@ const PrivateRoute = ({ children, ...rest }) => {
   //     history.push('/login')
   //   }
   // }, [history])
-  let isAuthenticated = false;
+  let isAuthenticated = true;
   console.log("Private Route");
 
   return (

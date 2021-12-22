@@ -19,6 +19,8 @@ API.interceptors.request.use((req) => {
 })
 
 export const getDatas = (APIkey) => API.post('/fetch', APIkey);
+export const getArduinoControl = (APIkey) => API.post('/arduinoControl', APIkey);
+export const postControl = (formData) => API.post('/control', formData);
 
 // export const logIn = () => API.get('/login')
 // export const logIn = (formData) => API.post('/login', formData)
