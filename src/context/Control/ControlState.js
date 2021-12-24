@@ -33,7 +33,7 @@ const ControlState = (props) => {
         const formData = {
           APIkey: user?.APIkey,
           userId: user?.userId,
-          userName: user?.userName,
+          userName: user?.name,
           controlName: e.target.name,
           controlType: e.target.checked
         };

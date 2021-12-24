@@ -11,6 +11,8 @@ import DashboardChart from '../ChartComponent/DashboardChart/DashboardChart';
 import { useRouteMatch } from 'react-router-dom';
 import DashboardSwitch from './../DashboardSwitch/DashboardSwitch';
 import Table from './../Table/Table';
+import NotificationComponent from '../NotificationComponent/NotificationComponent';
+import NotificationContext from '../../../context/Notification/NotificationContext';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -34,6 +36,8 @@ const Dashboard = () => {
   let user = useContext(UserContext);
   let data = useContext(DataContext);
   let control = useContext(ControlContext);
+  let notification = useContext(NotificationContext);
+
 
   const [points, setPoints] = useState([{}]);
 
@@ -117,7 +121,7 @@ const Dashboard = () => {
 
         <Grid container item direction="row" justifyContent="space-between" alignItems="center" padding={0} spacing={1} xs={12} md={3} >
           <Grid item xs={12} >
-            <Paper width='100%' style={{minHeight: 500}} >Todo</Paper>
+            <NotificationComponent notification={notification} />
           </Grid>
           <Grid item xs={12} >
             <Paper width='100%' style={{minHeight: 200}} >Car Details</Paper>

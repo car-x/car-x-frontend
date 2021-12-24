@@ -1,14 +1,14 @@
 import axios from 'axios'
 
 // For Production
-const API = axios.create({
-  baseURL: 'https://car-x-backend.herokuapp.com/',
-})
+// const API = axios.create({
+//   baseURL: 'https://car-x-backend.herokuapp.com/',
+// })
 
 // For Development
-// const API = axios.create({
-//   baseURL: 'http://localhost:5000/',
-// })
+const API = axios.create({
+  baseURL: 'http://localhost:5000/',
+})
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('user')) {
@@ -20,6 +20,7 @@ API.interceptors.request.use((req) => {
 
 export const getDatas = (APIkey) => API.post('/fetch', APIkey);
 export const getArduinoControl = (APIkey) => API.post('/arduinoControl', APIkey);
+export const getNotification = (APIkey) => API.post('/fetch/notification', APIkey);
 export const postControl = (formData) => API.post('/control', formData);
 
 // export const logIn = () => API.get('/login')
