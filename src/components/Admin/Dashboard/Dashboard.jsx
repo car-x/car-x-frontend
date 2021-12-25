@@ -39,15 +39,18 @@ const Dashboard = () => {
   let notification = useContext(NotificationContext);
 
 
-  const [points, setPoints] = useState([{}]);
+  let [points, setPoints] = useState([]);
 
   // useEffect(()=>console.log("Switch", switchStates),[switchStates])
   useEffect(() => {
     function pointAllocation(){
-      setPoints([...data].slice(data.length - 50, 50));
+      // console.log("DATA IN DASH", data);
+      let temp = [...data].slice(data.length - 25, data.length);
+      setPoints(temp);
     }
     data && pointAllocation();
-  }, [data])
+
+  }, [data]);
   
   const headCells = [
     {

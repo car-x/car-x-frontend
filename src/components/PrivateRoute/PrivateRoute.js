@@ -22,7 +22,7 @@ const PrivateRoute = ({ children, ...rest }) => {
   //   }
   // }, [history])
   let isAuthenticated = true;
-  console.log("Private Route");
+  // console.log("Private Route");
 
   return (
     <Route

@@ -17,8 +17,11 @@ const UserState = (props) => {
       updatedAt: '2021-12-19T14:49:07.807Z',
       __v: 0
     });
-  }, [])
-  console.log(user);
+  }, []);
+
+  useEffect(() => {
+    user && console.log('USER ', user);
+  }, [user]);
 
   // setTimeout(() => {
   //   setUser({ message: 'LOL' })

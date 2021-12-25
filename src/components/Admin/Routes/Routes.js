@@ -49,7 +49,6 @@ export const Routes = () => {
 
 const MyRoutes = () => {
   let { path } = useRouteMatch();
-  console.log("Route JSX");
   return (
     <Box component="main" sx={{ flexGrow: 1, p: 1, overflow: 'hidden' }}>
       <DrawerHeader />

@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { getNotification } from "../../API";
-import ControlContext from "../Control/ControlContext";
 import UserContext from "../User/UserContext";
 import NotificationContext from './NotificationContext';
+import SocketContext from './../Socket/SocketContext';
+
 const NotificationState = (props) => {
 
   let user = useContext(UserContext);
-  let control = useContext(ControlContext);
+  let socket = useContext(SocketContext);
 
-  let [notification, setNotification] = useState([]);
-  console.log(notification);
+  let [notification, setNotification] = useState(null);
 
   useEffect(() => {
     const f = async () => {
@@ -21,19 +21,23 @@ const NotificationState = (props) => {
       }
     }
     user && f();
-  }, [user])
+  }, [user]);
 
   useEffect(() => {
     const f = async () => {
-      try {
-        const res = await getNotification({ APIkey: user?.APIkey });
-        setNotification(res.data)
-      } catch (error) {
-        console.log(error)
-      }
+      socket?.on("new notification", (newNotification) => {
+        console.log("new notification from Socket.io :", newNotification);
+        setNotification(notification => [newNotification, ...notification]);
+      });
     }
-    user && control && f();
-  }, [user, control, control?.switchStates])
+    user && f();
+  }, [user, socket]);
+
+  useEffect(() => {
+    notification && console.log('NOTIFICATION: ', notification);
+  }, [notification]);
+
+
   return (
     <NotificationContext.Provider value={notification}>
       {props.children}

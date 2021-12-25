@@ -99,6 +99,7 @@ const ChartComponent = ({data, heading, xAxis, yAxis, width, height, defaultGrap
           <Chart width={width} height={height} points={points} chartType={chartType} xAxis={xAxis} yAxis={yAxis} CartesianGridEnable={chartType !== 'Area'} TooltipEnable LegendEnable={chartType !== 'Area'}/>
         </Grid>
         <Grid item xs={12}>
+          {data &&
           <TablePagination
             rowsPerPageOptions={[25, 50, 100]}
             component="div"
@@ -109,6 +110,7 @@ const ChartComponent = ({data, heading, xAxis, yAxis, width, height, defaultGrap
             onRowsPerPageChange={handleChangeRowsPerPage}
             labelRowsPerPage = 'Points Limit'
           />
+          }
         </Grid>
       </Grid>
     </Paper>

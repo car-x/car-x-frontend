@@ -107,8 +107,6 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  console.log("Navbar JSX");
-
   return (
     <>
       <CssBaseline />
