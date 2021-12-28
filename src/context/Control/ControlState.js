@@ -6,7 +6,7 @@ import SocketContext from "../Socket/SocketContext";
 
 const ControlState = (props) => {
 
-  let user = useContext(UserContext);
+  let { user } = useContext(UserContext);
   let [switchStates, setSwitchStates] = useState({
     led1: false,
     led2: false,

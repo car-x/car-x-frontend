@@ -17,6 +17,8 @@ import { useState } from 'react';
 import { Avatar, Box, Menu, MenuItem, Tooltip } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import UserContext from './../../../context/User/UserContext';
+import { useHistory } from 'react-router-dom';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -89,10 +91,17 @@ export default function MiniDrawer() {
   const [open, setOpen] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
-  
+  const {user, setUser} = useContext(UserContext);
   let myTheme = useContext(themeContext);
 
-  const avatarMenu = ['Account', 'Dashboard', 'Notification', 'Logout'];
+  const history = useHistory();
+
+  const logout = () => {
+    localStorage.clear();
+    setUser(null);
+    history.push('/');
+  }
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -140,7 +149,7 @@ export default function MiniDrawer() {
             <Tooltip title="Open settings">
               {/* Avatar Button */}
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" />
+                <Avatar alt={user?.name} >{user?.name[0]}</Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -159,11 +168,16 @@ export default function MiniDrawer() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {avatarMenu.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              
+              <MenuItem onClick={() => history.push('/admin')}>
+                <Typography textAlign="center">Dashboard</Typography>
+              </MenuItem>
+              <MenuItem onClick={() => history.push('/account')}>
+                <Typography textAlign="center">Account</Typography>
+              </MenuItem>
+              <MenuItem onClick={logout}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

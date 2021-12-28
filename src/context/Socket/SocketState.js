@@ -4,12 +4,13 @@ import UserContext from './../User/UserContext';
 import io from "socket.io-client";
 
 var socket;
+// const ENDPOINT = "http://localhost:5000/";
 const ENDPOINT = "https://car-x-backend.herokuapp.com/";
 
 const SocketState = (props) => {
 
 
-  let user = useContext(UserContext);
+  let { user } = useContext(UserContext);
 
   const [socketConnected, setSocketConnected] = useState(false);
 

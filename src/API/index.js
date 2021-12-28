@@ -18,13 +18,8 @@ API.interceptors.request.use((req) => {
   return req
 })
 
-export const getDatas = (APIkey) => API.post('/fetch', APIkey);
-export const getArduinoControl = (APIkey) => API.post('/arduino', APIkey);
-export const getNotification = (APIkey) => API.post('/fetch/notification', APIkey);
+export const getDatas = (APIkey) => API.post('/data/fetch', APIkey);
+export const getArduinoControl = (APIkey) => API.post('/control/fetch', APIkey);
 export const postControl = (formData) => API.post('/control', formData);
-
-// export const logIn = () => API.get('/login')
-// export const logIn = (formData) => API.post('/login', formData)
-// export const signUp = (formData) => API.post('/signUp', formData)
-// export const getTasks = () => API.get('/task')
-// export const saveOnline = (data) => API.post('/task', data)
+export const getNotification = (APIkey) => API.post('/notification/fetch', APIkey);
+export const login = (formData) => API.post('/login', formData);

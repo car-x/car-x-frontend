@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
-import { Typography, Paper, Grid } from '@mui/material';
+import { Typography, Paper, Grid, Alert } from '@mui/material';
 import UserContext from './../../../context/User/UserContext';
 import DataContext from './../../../context/Data/DataContext';
 import ControlContext from './../../../context/Control/ControlContext';
@@ -33,13 +33,14 @@ const Dashboard = () => {
   const classes = useStyles(theme);
   let { path } = useRouteMatch();
 
-  let user = useContext(UserContext);
+  let {user} = useContext(UserContext);
   let data = useContext(DataContext);
   let control = useContext(ControlContext);
   let notification = useContext(NotificationContext);
 
 
   let [points, setPoints] = useState([]);
+  let [controlMessage, setControlMessage] = useState(null);
 
   // useEffect(()=>console.log("Switch", switchStates),[switchStates])
   useEffect(() => {
@@ -66,6 +67,13 @@ const Dashboard = () => {
       label: 'Speed',
     },
   ]
+
+  const viewerHandle = () => {
+    setControlMessage("You can't control! Please contact the master user.");
+    setTimeout(() => {
+      setControlMessage(null);
+    }, 5000);
+  }
   return (
     <div>
       <Paper elevation={1} className={classes.heading}><Typography variant='h6' component='h6' >{user?.name}'s Dashboard</Typography></Paper>
@@ -96,17 +104,20 @@ const Dashboard = () => {
             <Grid item xs={12} >
               <Typography variant='h6' pl={2} mt={2}>Controlling System</Typography>
             </Grid>
+            
+            {controlMessage && <Grid item xs={12} ><Alert severity='warning'>{controlMessage}</Alert></Grid> }
+            
             {control.switchStates && <><Grid item xs={12} md={3}>
-              <DashboardSwitch heading='LED 1' checked={control.switchStates.led1} handleChange={control.handleChange} name='led1' />
+              <DashboardSwitch heading='LED 1' checked={control.switchStates.led1} handleChange={user?.userType === 'master' ? control.handleChange: viewerHandle} name='led1' />
             </Grid>
             <Grid item xs={12} md={3}>
-              <DashboardSwitch heading='LED 2' checked={control.switchStates.led2} handleChange={control.handleChange} name='led2' />
+              <DashboardSwitch heading='LED 2' checked={control.switchStates.led2} handleChange={user?.userType === 'master' ? control.handleChange: viewerHandle} name='led2' />
             </Grid>
             <Grid item xs={12} md={3}>
-              <DashboardSwitch heading='LED 3' checked={control.switchStates.led3} handleChange={control.handleChange} name='led3' />
+              <DashboardSwitch heading='LED 3' checked={control.switchStates.led3} handleChange={user?.userType === 'master' ? control.handleChange: viewerHandle} name='led3' />
             </Grid>
             <Grid item xs={12} md={3}>
-              <DashboardSwitch heading='LED 4' checked={control.switchStates.led4} handleChange={control.handleChange} name='led4' />
+              <DashboardSwitch heading='LED 4' checked={control.switchStates.led4} handleChange={user?.userType === 'master' ? control.handleChange: viewerHandle} name='led4' />
             </Grid></>
             }
           </Grid>
