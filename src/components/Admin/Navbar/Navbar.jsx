@@ -162,7 +162,9 @@ export default function MiniDrawer() {
             <Tooltip title="Open settings">
               {/* Avatar Button */}
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user?.name}>{user?.name[0]}</Avatar>
+                <Avatar alt={user?.name ? user?.name : ''}>
+                  {user?.name ? user?.name[0] : ''}
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu

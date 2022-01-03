@@ -4,7 +4,7 @@ import UserContext from './../User/UserContext';
 import io from "socket.io-client";
 
 var socket = null;
-const ENDPOINT = "http://localhost:5000/";
+const ENDPOINT = process.env.NODE_ENV === 'development' ? 'http://localhost:5000/' : 'https://car-x-backend.herokuapp.com/';
 // const ENDPOINT = "https://car-x-backend.herokuapp.com/";
 
 const SocketState = (props) => {

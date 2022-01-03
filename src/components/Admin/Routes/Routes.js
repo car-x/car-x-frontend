@@ -6,38 +6,42 @@ import { DrawerHeader } from './../Navbar/Navbar';
 import Sensor1 from './../Sensor1/Sensor1';
 import Sensor2 from './../Sensor2/Sensor2';
 import Accounts from './../Accounts/Accounts';
-import { AccountCircle, Dashboard as Dash, Sensors } from '@mui/icons-material';
+import { Dashboard as Dash, Group, ManageAccounts, Sensors } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
-
+import Profile from './../Profile/Profile';
 
 // This routes will imported in Navbar and create navlinks accordingly
-const routes =
-  [{
-    name: 'Dashboard',
-    path: '/',
-    icon: <Dash />
-  },
-  {
-    name: 'Sensor 1',
-    path: '/sensor1',
-    icon: ''
-  },
-  {
-    name: 'Sensor 2',
-    path: '/sensor2',
-    icon: ''
-  },
-  {
-    name: 'Divider',
-    path: null,
-    icon: null
-  },
-  {
-    name: 'Accounts',
-    path: '/accounts',
-    icon: <AccountCircle />
-  },
-  ];
+const routes = [{
+  name: 'Dashboard',
+  path: '/',
+  icon: <Dash />
+},
+{
+  name: 'Sensor 1',
+  path: '/sensor1',
+  icon: ''
+},
+{
+  name: 'Sensor 2',
+  path: '/sensor2',
+  icon: ''
+},
+{
+  name: 'Divider',
+  path: null,
+  icon: null
+},
+{
+  name: 'Profile',
+  path: '/profile',
+  icon: <ManageAccounts />
+},
+{
+  name: 'Accounts',
+  path: '/accounts',
+  icon: <Group />
+},
+];
 
 export const Routes = () => {
   let history = useHistory();
@@ -77,6 +81,7 @@ const MyRoutes = () => {
           <Route path={`${path}/sensor1`} component={Sensor1} />
           <Route path={`${path}/sensor2`} component={Sensor2} />
           <Route path={`${path}/accounts`} component={Accounts} />
+          <Route path={`${path}/profile`} component={Profile} />
           <Route path={path} >
             <h1>Wrong</h1>
           </Route>
