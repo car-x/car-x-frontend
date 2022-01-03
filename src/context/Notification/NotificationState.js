@@ -7,7 +7,7 @@ import SocketContext from './../Socket/SocketContext';
 const NotificationState = (props) => {
 
   let { user } = useContext(UserContext);
-  let socket = useContext(SocketContext);
+  let { socket } = useContext(SocketContext);
 
   let [notification, setNotification] = useState(null);
 

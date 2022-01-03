@@ -14,7 +14,7 @@ const ControlState = (props) => {
     led4: false
   });
 
-  let socket = useContext(SocketContext);
+  let { socket } = useContext(SocketContext);
 
   useEffect(() => {
     const f = async () => {

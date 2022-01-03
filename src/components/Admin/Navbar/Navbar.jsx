@@ -1,25 +1,26 @@
-import React, {useContext} from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Routes } from './../Routes/Routes';
-import themeContext from '../../../context/Theme/ThemeContext';
-import { useState } from 'react';
-import { Avatar, Box, Menu, MenuItem, Tooltip } from '@mui/material';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import UserContext from './../../../context/User/UserContext';
-import { useHistory } from 'react-router-dom';
-const drawerWidth = 240;
+import React, { useContext } from 'react'
+import { styled, useTheme } from '@mui/material/styles'
+import MuiDrawer from '@mui/material/Drawer'
+import MuiAppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import List from '@mui/material/List'
+import CssBaseline from '@mui/material/CssBaseline'
+import Typography from '@mui/material/Typography'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { Routes } from './../Routes/Routes'
+import themeContext from '../../../context/Theme/ThemeContext'
+import { useState } from 'react'
+import { Avatar, Box, Menu, MenuItem, Tooltip } from '@mui/material'
+import Brightness4Icon from '@mui/icons-material/Brightness4'
+import Brightness7Icon from '@mui/icons-material/Brightness7'
+import UserContext from './../../../context/User/UserContext'
+import { useHistory } from 'react-router-dom'
+import SocketContext from './../../../context/Socket/SocketContext'
+const drawerWidth = 240
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -28,7 +29,7 @@ const openedMixin = (theme) => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: 'hidden',
-});
+})
 
 const closedMixin = (theme) => ({
   transition: theme.transitions.create('width', {
@@ -40,7 +41,7 @@ const closedMixin = (theme) => ({
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(9)} + 1px)`,
   },
-});
+})
 
 export const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -49,7 +50,7 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-}));
+}))
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -67,59 +68,61 @@ const AppBar = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
-}));
+}))
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+  ...(open && {
+    ...openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme),
   }),
-);
+  ...(!open && {
+    ...closedMixin(theme),
+    '& .MuiDrawer-paper': closedMixin(theme),
+  }),
+}))
 
 export default function MiniDrawer() {
-  const theme = useTheme();
-  const [open, setOpen] = useState(false);
-  const [anchorElUser, setAnchorElUser] = useState(null);
+  const theme = useTheme()
+  const [open, setOpen] = useState(false)
+  const [anchorElUser, setAnchorElUser] = useState(null)
 
-  const {user, setUser} = useContext(UserContext);
-  let myTheme = useContext(themeContext);
+  const { user, setUser } = useContext(UserContext)
+  let myTheme = useContext(themeContext)
+  let { disconnectFunction } = useContext(SocketContext)
 
-  const history = useHistory();
+  const history = useHistory()
 
   const logout = () => {
-    localStorage.clear();
-    setUser(null);
-    history.push('/');
+    localStorage.clear()
+    disconnectFunction()
+    setUser(null)
+    history.push('/')
   }
 
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+    setAnchorElUser(event.currentTarget)
+  }
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+    setAnchorElUser(null)
+  }
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <>
       <CssBaseline />
-      <AppBar position="fixed" open={open} color='secondary' enableColorOnDark>
+      <AppBar position="fixed" open={open} color="secondary" enableColorOnDark>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -136,20 +139,30 @@ export default function MiniDrawer() {
           <Typography variant="h6" noWrap component="div">
             Car-X
           </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            
-          </Typography>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          ></Typography>
           <Box sx={{ flexGrow: 0 }}>
             {/* Theme Toggler Button */}
             <Tooltip title="Theme Change">
-              <IconButton sx={{ mr: 1 }} onClick={myTheme.themeToggler} color="inherit">
-                {myTheme.state === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+              <IconButton
+                sx={{ mr: 1 }}
+                onClick={myTheme.themeToggler}
+                color="inherit"
+              >
+                {myTheme.state === 'dark' ? (
+                  <Brightness7Icon />
+                ) : (
+                  <Brightness4Icon />
+                )}
               </IconButton>
             </Tooltip>
             <Tooltip title="Open settings">
               {/* Avatar Button */}
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user?.name} >{user?.name[0]}</Avatar>
+                <Avatar alt={user?.name}>{user?.name[0]}</Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -168,7 +181,6 @@ export default function MiniDrawer() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              
               <MenuItem onClick={() => history.push('/admin')}>
                 <Typography textAlign="center">Dashboard</Typography>
               </MenuItem>
@@ -185,14 +197,17 @@ export default function MiniDrawer() {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {theme.direction === 'rtl' ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
           {/* Imported Routes */}
           <Routes />
-
         </List>
         {/* <Divider />
         <List>
@@ -207,5 +222,5 @@ export default function MiniDrawer() {
         </List> */}
       </Drawer>
     </>
-  );
+  )
 }

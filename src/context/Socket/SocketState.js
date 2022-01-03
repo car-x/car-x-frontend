@@ -3,9 +3,9 @@ import SocketContext from "./SocketContext";
 import UserContext from './../User/UserContext';
 import io from "socket.io-client";
 
-var socket;
-// const ENDPOINT = "http://localhost:5000/";
-const ENDPOINT = "https://car-x-backend.herokuapp.com/";
+var socket = null;
+const ENDPOINT = "http://localhost:5000/";
+// const ENDPOINT = "https://car-x-backend.herokuapp.com/";
 
 const SocketState = (props) => {
 
@@ -14,9 +14,15 @@ const SocketState = (props) => {
 
   const [socketConnected, setSocketConnected] = useState(false);
 
+  const disconnectFunction = () => {
+    console.log("Socket Disconnected");
+    setSocketConnected(false);
+    socket.off();
+  }
+
+
   useEffect(() => {
-    // console.log("socketConnected: ", socketConnected);
-    const f = () => {
+    const setupFunction = () => {
       socket = io(ENDPOINT, { transports: ['websocket'] });
       socket.emit("setup", user);
       socket.on("connected", (room) => {
@@ -27,7 +33,8 @@ const SocketState = (props) => {
         console.log("message! :", message);
       });
     }
-    user && f();
+    // console.log("socketConnected: ", socketConnected);
+    user && setupFunction();
   }, [user]);
 
   useEffect(() => {
@@ -39,7 +46,7 @@ const SocketState = (props) => {
   //   setUser({ message: 'LOL' })
   // }, 10000);
   return (
-    <SocketContext.Provider value={socket}>
+    <SocketContext.Provider value={{ socket, disconnectFunction }}>
       {props.children}
     </SocketContext.Provider >
   )

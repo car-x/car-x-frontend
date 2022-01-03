@@ -8,7 +8,7 @@ const DataState = (props) => {
 
   let [data, setData] = useState([]);
   let { user } = useContext(UserContext);
-  let socket = useContext(SocketContext);
+  let { socket } = useContext(SocketContext);
 
   useEffect(() => {
     const f = async () => {
