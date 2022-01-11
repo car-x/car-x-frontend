@@ -6,20 +6,30 @@ import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
 import CssBaseline from '@mui/material/CssBaseline'
 import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { Routes } from './../Routes/Routes'
+// import { Routes } from './../Routes/Routes'
 import themeContext from '../../../context/Theme/ThemeContext'
 import { useState } from 'react'
-import { Avatar, Box, Menu, MenuItem, Tooltip } from '@mui/material'
+import {
+  Avatar,
+  Box,
+  Menu,
+  MenuItem,
+  Tooltip,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material'
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 import UserContext from './../../../context/User/UserContext'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useRouteMatch } from 'react-router-dom'
 import SocketContext from './../../../context/Socket/SocketContext'
+import { Sensors } from '@mui/icons-material'
 const drawerWidth = 240
 
 const openedMixin = (theme) => ({
@@ -87,7 +97,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }))
 
-export default function MiniDrawer() {
+export default function MiniDrawer(props) {
   const theme = useTheme()
   const [open, setOpen] = useState(false)
   const [anchorElUser, setAnchorElUser] = useState(null)
@@ -97,6 +107,7 @@ export default function MiniDrawer() {
   let { disconnectFunction } = useContext(SocketContext)
 
   const history = useHistory()
+  let { path } = useRouteMatch()
 
   const logout = () => {
     localStorage.clear()
@@ -208,8 +219,37 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {/* Imported Routes */}
-          <Routes />
+          {/* Proped Routes */}
+          {props.routes.map((route) => {
+            let comp =
+              route.name === 'Divider' ? (
+                <Divider sx={{ margin: 1 }} key={route.name} />
+              ) : route.name === 'Sensors' ? (
+                route.sensors?.map((r) => (
+                  <ListItem
+                    button
+                    key={r.name}
+                    onClick={() => history.push(`${path}${r.path}`)}
+                  >
+                    <ListItemIcon>{r.icon ? r.icon : <Sensors />}</ListItemIcon>
+                    <ListItemText primary={r.name} />
+                  </ListItem>
+                ))
+              ) : (
+                <ListItem
+                  button
+                  key={route.name}
+                  onClick={() => history.push(`${path}${route.path}`)}
+                >
+                  <ListItemIcon>
+                    {route.icon ? route.icon : <Sensors />}
+                  </ListItemIcon>
+                  <ListItemText primary={route.name} />
+                </ListItem>
+              )
+
+            return comp
+          })}
         </List>
         {/* <Divider />
         <List>

@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
   },
 }))
+
 const Dashboard = (props) => {
   const theme = useTheme()
   const classes = useStyles(theme)
@@ -50,27 +51,15 @@ const Dashboard = (props) => {
     data && pointAllocation()
   }, [data])
 
-  const headCells = [
-    {
-      name: 'time',
-      label: 'Time',
-    },
-    {
-      name: 'temp',
-      label: 'Temperature',
-    },
-    {
-      name: 'speed',
-      label: 'Speed',
-    },
-  ]
-
   const viewerHandle = () => {
-    setControlMessage("You can't control! Please contact the master user.")
+    setControlMessage(
+      "You can't control! Please contact the Owner/Master user."
+    )
     setTimeout(() => {
       setControlMessage(null)
     }, 5000)
   }
+
   return (
     <div>
       <Paper elevation={1} className={classes.heading}>
@@ -197,58 +186,77 @@ const Dashboard = (props) => {
               </Grid>
             )}
 
-            {control.switchStates && (
-              <>
-                <Grid item xs={12} md={3}>
-                  <DashboardSwitch
-                    heading="LED 1"
-                    checked={control.switchStates.led1}
-                    handleChange={
-                      user?.userType === 'master' || user?.userType === 'owner'
-                        ? control.handleChange
-                        : viewerHandle
-                    }
-                    name="led1"
-                  />
-                </Grid>
-                <Grid item xs={12} md={3}>
-                  <DashboardSwitch
-                    heading="LED 2"
-                    checked={control.switchStates.led2}
-                    handleChange={
-                      user?.userType === 'master' || user?.userType === 'owner'
-                        ? control.handleChange
-                        : viewerHandle
-                    }
-                    name="led2"
-                  />
-                </Grid>
-                <Grid item xs={12} md={3}>
-                  <DashboardSwitch
-                    heading="LED 3"
-                    checked={control.switchStates.led3}
-                    handleChange={
-                      user?.userType === 'master' || user?.userType === 'owner'
-                        ? control.handleChange
-                        : viewerHandle
-                    }
-                    name="led3"
-                  />
-                </Grid>
-                <Grid item xs={12} md={3}>
-                  <DashboardSwitch
-                    heading="LED 4"
-                    checked={control.switchStates.led4}
-                    handleChange={
-                      user?.userType === 'master' || user?.userType === 'owner'
-                        ? control.handleChange
-                        : viewerHandle
-                    }
-                    name="led4"
-                  />
-                </Grid>
-              </>
-            )}
+            {
+              control.switchStates &&
+                props.controls?.map((c) => (
+                  <Grid item xs={12} md={3} key={c.name}>
+                    <DashboardSwitch
+                      heading={c.heading}
+                      checked={control.switchStates[c.name]}
+                      handleChange={
+                        user?.userType === 'master' ||
+                        user?.userType === 'owner'
+                          ? control.handleChange
+                          : viewerHandle
+                      }
+                      name={c.name}
+                    />
+                  </Grid>
+                ))
+
+              // (
+              //   <>
+              //     <Grid item xs={12} md={3}>
+              //       <DashboardSwitch
+              //         heading="LED 1"
+              //         checked={control.switchStates.led1}
+              //         handleChange={
+              //           user?.userType === 'master' || user?.userType === 'owner'
+              //             ? control.handleChange
+              //             : viewerHandle
+              //         }
+              //         name="led1"
+              //       />
+              //     </Grid>
+              //     <Grid item xs={12} md={3}>
+              //       <DashboardSwitch
+              //         heading="LED 2"
+              //         checked={control.switchStates.led2}
+              //         handleChange={
+              //           user?.userType === 'master' || user?.userType === 'owner'
+              //             ? control.handleChange
+              //             : viewerHandle
+              //         }
+              //         name="led2"
+              //       />
+              //     </Grid>
+              //     <Grid item xs={12} md={3}>
+              //       <DashboardSwitch
+              //         heading="LED 3"
+              //         checked={control.switchStates.led3}
+              //         handleChange={
+              //           user?.userType === 'master' || user?.userType === 'owner'
+              //             ? control.handleChange
+              //             : viewerHandle
+              //         }
+              //         name="led3"
+              //       />
+              //     </Grid>
+              //     <Grid item xs={12} md={3}>
+              //       <DashboardSwitch
+              //         heading="LED 4"
+              //         checked={control.switchStates.led4}
+              //         handleChange={
+              //           user?.userType === 'master' || user?.userType === 'owner'
+              //             ? control.handleChange
+              //             : viewerHandle
+              //         }
+              //         name="led4"
+              //       />
+              //     </Grid>
+              //   </>
+              // )
+            }
           </Grid>
 
           {/* Data Table */}
@@ -266,7 +274,7 @@ const Dashboard = (props) => {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Table rows={data} headCells={headCells} />
+              <Table rows={data} headCells={props.tableHeadCells} />
             </Grid>
           </Grid>
         </Grid>
