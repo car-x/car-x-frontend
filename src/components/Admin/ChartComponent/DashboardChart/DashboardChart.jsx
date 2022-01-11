@@ -35,8 +35,10 @@ const DashboardChart = ({
   yAxis,
   width,
   height,
+  maxHeight,
   chartType,
   link,
+  TooltipEnable,
   CartesianGridEnable,
   LegendEnable,
   chartAxisEnable,
@@ -59,10 +61,12 @@ const DashboardChart = ({
         chartType={chartType}
         xAxis={xAxis}
         yAxis={yAxis}
+        TooltipEnable={TooltipEnable}
         CartesianGridEnable={CartesianGridEnable}
         LegendEnable={LegendEnable}
         chartAxisEnable={chartAxisEnable}
         height={height}
+        maxHeight={maxHeight}
       />
       <div className={classes.btn}>
         <Button>

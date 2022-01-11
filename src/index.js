@@ -11,4 +11,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// Service Worker Registered for PWA
 serviceWorkerRegistration.register();

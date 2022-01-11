@@ -18,6 +18,7 @@ import { useTheme } from '@mui/material/styles'
 const Chart = ({
   width,
   height,
+  maxHeight,
   points,
   chartType,
   xAxis,
@@ -102,7 +103,7 @@ const Chart = ({
     <ResponsiveContainer
       width={width ? width : '95%'}
       height={height ? height : '30%'}
-      minHeight={180}
+      minHeight={maxHeight ? maxHeight : 180}
     >
       {graph}
     </ResponsiveContainer>

@@ -12,6 +12,18 @@ import DataState from './context/Data/DataState';
 import ControlState from './context/Control/ControlState';
 import NotificationState from './context/Notification/NotificationState';
 
+/*
+
+Contexts are => {
+  ThemeState: Theme Management,
+  UserState: User Management & Authentication,
+  SocketState: Socket Management,
+  DataState: Data Management,
+  ControlState: Controlling Management,
+  NotificationState: Notification Management
+}
+
+*/
 function App() {
   return (
     <div className="App">

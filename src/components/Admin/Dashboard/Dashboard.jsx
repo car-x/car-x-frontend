@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
   },
 }))
-const Dashboard = () => {
+const Dashboard = (props) => {
   const theme = useTheme()
   const classes = useStyles(theme)
   let { path } = useRouteMatch()
@@ -102,7 +102,7 @@ const Dashboard = () => {
           <Grid
             container
             direction="row"
-            justifyContent="space-between"
+            justifyContent="flex-start"
             alignItems="center"
             spacing={1}
             padding={0}
@@ -112,7 +112,27 @@ const Dashboard = () => {
                 Charts
               </Typography>
             </Grid>
-            <Grid item xs={12} md={4}>
+            {props.sensors.map((sensor, index) => {
+              const c = ['Area', 'Line', 'Bar']
+
+              return (
+                <Grid item xs={12} md={4} key={sensor.name}>
+                  <DashboardChart
+                    data={points}
+                    heading={sensor.name}
+                    xAxis={sensor.headCells[0].name}
+                    yAxis={sensor.headCells[1].name}
+                    width="95%"
+                    height="30%"
+                    maxHeight={80}
+                    chartType={c[index % 3]}
+                    TooltipEnable={true}
+                    link={`${path}${sensor.path}`}
+                  />
+                </Grid>
+              )
+            })}
+            {/* <Grid item xs={12} md={4}>
               <DashboardChart
                 data={points}
                 heading="Temperature"
@@ -120,9 +140,10 @@ const Dashboard = () => {
                 yAxis="temp"
                 width="95%"
                 height="30%"
+                maxHeight={80}
                 chartType="Area"
+                TooltipEnable={true}
                 link={`${path}/sensor1`}
-                chartAxisEnable={true}
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -133,9 +154,10 @@ const Dashboard = () => {
                 yAxis="speed"
                 width="95%"
                 height="20%"
+                maxHeight={80}
                 chartType="Line"
+                TooltipEnable={true}
                 LegendEnable={false}
-                chartAxisEnable={true}
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -146,11 +168,12 @@ const Dashboard = () => {
                 yAxis="temp"
                 width="95%"
                 height="30%"
+                maxHeight={80}
                 chartType="Bar"
+                TooltipEnable={true}
                 LegendEnable={false}
-                chartAxisEnable={true}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
 
           {/* Controller Container */}
