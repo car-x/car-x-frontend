@@ -6,6 +6,7 @@ import { DrawerHeader } from './../Navbar/Navbar';
 // import Sensor1 from './../Sensor1/Sensor1';
 // import Sensor2 from './../Sensor2/Sensor2';
 import SensorComponent from './../Sensor/Sensor';
+import ControllerComponent from '../ControllerComponent/ControllerComponent';
 import Accounts from './../Accounts/Accounts';
 import Profile from './../Profile/Profile';
 
@@ -30,6 +31,7 @@ const MyRoutes = (props) => {
             </Route>
           )}
 
+          <Route path={`${path}/controls`}><ControllerComponent controls={props.controls} /></Route>
           <Route path={`${path}/accounts`} component={Accounts} />
           <Route path={`${path}/profile`} component={Profile} />
           <Route path={path} >

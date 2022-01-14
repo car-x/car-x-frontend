@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import DashboardChart from '../ChartComponent/DashboardChart/DashboardChart'
 import { useRouteMatch } from 'react-router-dom'
-import DashboardSwitch from './../DashboardSwitch/DashboardSwitch'
+import DashboardSwitch from '../ControllerComponent/DashboardSwitch/DashboardSwitch'
 import Table from './../Table/Table'
 import NotificationComponent from '../NotificationComponent/NotificationComponent'
 import NotificationContext from '../../../context/Notification/NotificationContext'
@@ -45,7 +45,10 @@ const Dashboard = (props) => {
   useEffect(() => {
     function pointAllocation() {
       // console.log("DATA IN DASH", data);
-      let temp = [...data].slice(data.length - 25, data.length)
+      let temp = [...data].slice(
+        data.length - 25 < 0 ? 0 : data.length - 25,
+        data.length
+      )
       setPoints(temp)
     }
     data && pointAllocation()

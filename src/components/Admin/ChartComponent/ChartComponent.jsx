@@ -63,12 +63,29 @@ const ChartComponent = ({
     setPage(0)
   }
 
+  // useEffect(() => {
+  //   if (data) {
+  //     let p = [...data].slice(
+  //       page * rowsPerPage,
+  //       page * rowsPerPage + rowsPerPage
+  //     )
+  //     setPoints(p)
+  //     // console.log('data, page, rowsPerPage Changed!');
+  //   }
+  //   // console.log(JSON.stringify(p));
+  // }, [data, page, rowsPerPage])
+
   useEffect(() => {
+    // Calculation
+    // (length - (totalpage-page-1)*rowPerPage - rowPerpage , length - (totalpage-page-1)*rowPerPage)
+
     if (data) {
-      let p = [...data].slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
-      )
+      let totalpage = Math.ceil(data.length / rowsPerPage)
+      let startIndex =
+        data.length - (totalpage - page - 1) * rowsPerPage - rowsPerPage
+      let endIndex = data.length - (totalpage - page - 1) * rowsPerPage
+
+      let p = [...data].slice(startIndex < 0 ? 0 : startIndex, endIndex)
       setPoints(p)
       // console.log('data, page, rowsPerPage Changed!');
     }

@@ -167,32 +167,40 @@ const Profile = () => {
                         </div>
                       ) : (
                         <>
-                          <LoadingButton
-                            color="secondary"
-                            loading={loading}
-                            loadingPosition="start"
-                            startIcon={<SaveIcon />}
-                            variant="contained"
-                            onClick={() =>
-                              handleSubmit(
-                                {
-                                  fieldName: input.name,
-                                  fieldValue: input.value,
-                                },
-                                index
-                              )
-                            }
+                          <div
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'flex-start',
+                              marginTop: '5px',
+                            }}
                           >
-                            Save
-                          </LoadingButton>
-                          <Button
-                            variant="contained"
-                            startIcon={<Cancel />}
-                            style={{ marginLeft: '1%' }}
-                            onClick={() => handleEdit(index)}
-                          >
-                            Cancel
-                          </Button>
+                            <LoadingButton
+                              color="secondary"
+                              loading={loading}
+                              loadingPosition="start"
+                              startIcon={<SaveIcon />}
+                              variant="contained"
+                              onClick={() =>
+                                handleSubmit(
+                                  {
+                                    fieldName: input.name,
+                                    fieldValue: input.value,
+                                  },
+                                  index
+                                )
+                              }
+                            >
+                              Save
+                            </LoadingButton>
+                            <Button
+                              variant="contained"
+                              startIcon={<Cancel />}
+                              style={{ marginLeft: '1%' }}
+                              onClick={() => handleEdit(index)}
+                            >
+                              Cancel
+                            </Button>
+                          </div>
                         </>
                       )
                     ) : null}

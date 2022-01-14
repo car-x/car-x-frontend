@@ -233,7 +233,15 @@ const Accounts = () => {
                   return null
                 })}
 
-                <Grid item sm={12}>
+                <Grid
+                  item
+                  sm={12}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    marginTop: '5px',
+                  }}
+                >
                   <LoadingButton
                     color="secondary"
                     onClick={handleFormSubmit}

@@ -4,6 +4,7 @@ import Routes from './Routes/Routes'
 import {
   Dashboard as Dash,
   Group,
+  AppSettingsAlt,
   ManageAccounts,
   // Sensors,
 } from '@mui/icons-material'
@@ -78,6 +79,11 @@ const Admin = () => {
       ],
     },
     {
+      name: 'Controls',
+      path: '/controls',
+      icon: <AppSettingsAlt />,
+    },
+    {
       name: 'Divider',
       path: null,
       icon: null,
@@ -98,25 +104,25 @@ const Admin = () => {
       heading: 'LED 1',
       name: 'led1',
       details:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo, expedita omnis quam dolor voluptatem alias tenetur tempora dicta. Excepturi qui delectus perspiciatis harum aliquam nemo!',
+        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem?',
     },
     {
       heading: 'LED 2',
       name: 'led2',
       details:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo, expedita omnis quam dolor voluptatem alias tenetur tempora dicta. Excepturi qui delectus perspiciatis harum aliquam nemo!',
+        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem?',
     },
     {
       heading: 'LED 3',
       name: 'led3',
       details:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo, expedita omnis quam dolor voluptatem alias tenetur tempora dicta. Excepturi qui delectus perspiciatis harum aliquam nemo!',
+        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem?',
     },
     {
       heading: 'LED 4',
       name: 'led4',
       details:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo, expedita omnis quam dolor voluptatem alias tenetur tempora dicta. Excepturi qui delectus perspiciatis harum aliquam nemo!',
+        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem?',
     },
   ])
 

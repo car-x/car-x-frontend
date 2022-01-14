@@ -13,6 +13,7 @@ const ControlState = (props) => {
     led3: false,
     led4: false
   });
+  const [loading, setLoading] = useState(false)
 
   let { socket } = useContext(SocketContext);
 
@@ -42,6 +43,7 @@ const ControlState = (props) => {
   const handleChange = (e) => {
 
     const f = async () => {
+      setLoading(true)
       try {
         const formData = {
           APIkey: user?.APIkey,
@@ -52,10 +54,13 @@ const ControlState = (props) => {
         };
         // console.log('Form Data', formData);
         await postControl(formData);
+
+        setLoading(false)
         // console.log('postControl response ', res.data);
         // setSwitchStates(res.data);
       } catch (error) {
         console.log(error)
+        setLoading(false)
       }
     }
     user && f();
@@ -66,7 +71,7 @@ const ControlState = (props) => {
   }, [switchStates]);
 
   return (
-    <ControlContext.Provider value={{ switchStates, handleChange }}>
+    <ControlContext.Provider value={{ switchStates, handleChange, loading }}>
       {props.children}
     </ControlContext.Provider >
   )
