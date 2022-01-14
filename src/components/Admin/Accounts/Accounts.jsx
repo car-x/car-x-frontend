@@ -164,7 +164,7 @@ const Accounts = () => {
     <>
       <h2 className="text-center underline">Accounts</h2>
       <div className="center-center" style={{ flexDirection: 'column' }}>
-        {user.userType === 'owner' ? (
+        {user?.userType === 'owner' ? (
           !formOpen ? (
             <div
               style={{ width: '100%', maxWidth: '1000px', marginBottom: '1%' }}

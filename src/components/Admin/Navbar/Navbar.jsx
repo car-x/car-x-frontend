@@ -133,7 +133,17 @@ export default function MiniDrawer(props) {
   return (
     <>
       <CssBaseline />
-      <AppBar position="fixed" open={open} color="secondary" enableColorOnDark>
+      <AppBar
+        position="fixed"
+        open={open}
+        color="transparent"
+        enableColorOnDark
+        sx={{
+          backgroundColor:
+            theme.palette.mode === 'dark' ? '#995da26e' : '#add3ff59',
+          backdropFilter: ' blur(10px)',
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
