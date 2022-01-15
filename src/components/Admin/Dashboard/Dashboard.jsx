@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useTheme } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
-import { Typography, Paper, Grid, Alert } from '@mui/material'
+import { Typography, Paper, Grid, Alert, Skeleton } from '@mui/material'
 import UserContext from './../../../context/User/UserContext'
 import DataContext from './../../../context/Data/DataContext'
 import ControlContext from './../../../context/Control/ControlContext'
@@ -66,9 +66,13 @@ const Dashboard = (props) => {
   return (
     <div>
       <Paper elevation={1} className={classes.heading}>
-        <Typography variant="h6" component="h6">
-          {user?.name}'s Dashboard
-        </Typography>
+        {user ? (
+          <Typography variant="h6" component="h6">
+            {user?.name}'s Dashboard
+          </Typography>
+        ) : (
+          <Skeleton variant="h3" />
+        )}
       </Paper>
 
       {/* Outer Grid Container */}
@@ -109,18 +113,26 @@ const Dashboard = (props) => {
 
               return (
                 <Grid item xs={12} md={4} key={sensor.name}>
-                  <DashboardChart
-                    data={points}
-                    heading={sensor.name}
-                    xAxis={sensor.headCells[0].name}
-                    yAxis={sensor.headCells[1].name}
-                    width="95%"
-                    height="30%"
-                    maxHeight={80}
-                    chartType={c[index % 3]}
-                    TooltipEnable={true}
-                    link={`${path}${sensor.path}`}
-                  />
+                  {points.length === 0 ? (
+                    <Skeleton
+                      variant="rectangular"
+                      width={'100%'}
+                      height={120}
+                    />
+                  ) : (
+                    <DashboardChart
+                      data={points}
+                      heading={sensor.name}
+                      xAxis={sensor.headCells[0].name}
+                      yAxis={sensor.headCells[1].name}
+                      width="95%"
+                      height="30%"
+                      maxHeight={80}
+                      chartType={c[index % 3]}
+                      TooltipEnable={true}
+                      link={`${path}${sensor.path}`}
+                    />
+                  )}
                 </Grid>
               )
             })}
@@ -190,9 +202,9 @@ const Dashboard = (props) => {
             )}
 
             {
-              control.switchStates &&
-                props.controls?.map((c) => (
-                  <Grid item xs={12} md={3} key={c.name}>
+              props.controls?.map((c) => (
+                <Grid item xs={12} md={3} key={c.name}>
+                  {control.switchStates ? (
                     <DashboardSwitch
                       heading={c.heading}
                       checked={control.switchStates[c.name]}
@@ -204,8 +216,11 @@ const Dashboard = (props) => {
                       }
                       name={c.name}
                     />
-                  </Grid>
-                ))
+                  ) : (
+                    <Skeleton variant="rectangular" height={80} />
+                  )}
+                </Grid>
+              ))
 
               // (
               //   <>
@@ -277,7 +292,19 @@ const Dashboard = (props) => {
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Table rows={data} headCells={props.tableHeadCells} />
+              {data.length > 0 ? (
+                <Table rows={data} headCells={props.tableHeadCells} />
+              ) : (
+                <>
+                  <Skeleton variant="rectangular" height={60} />
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                  <Skeleton />
+                </>
+              )}
             </Grid>
           </Grid>
         </Grid>

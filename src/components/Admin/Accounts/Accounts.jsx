@@ -57,7 +57,7 @@ const Accounts = () => {
     userType: 'viewer',
   })
   const [formOpen, setFormOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [newUserLoading, setNewUserLoading] = useState(true)
 
   // console.log(formData)
   useEffect(() => {
@@ -137,7 +137,7 @@ const Accounts = () => {
   const handleFormSubmit = async () => {
     // console.log('Form Data: ')
     // console.table(formData)
-    setLoading(true)
+    setNewUserLoading(true)
     try {
       const res = await accountCreate({
         ...formData,
@@ -145,7 +145,7 @@ const Accounts = () => {
         owner_id: user._id,
       })
       setUsers((users) => [...users, res.data])
-      setLoading(false)
+      setNewUserLoading(false)
       setFormOpen(false)
       setFormData({
         name: '',
@@ -156,7 +156,7 @@ const Accounts = () => {
       })
     } catch (error) {
       console.log(error)
-      setLoading(false)
+      setNewUserLoading(false)
     }
   }
 
@@ -245,7 +245,7 @@ const Accounts = () => {
                   <LoadingButton
                     color="secondary"
                     onClick={handleFormSubmit}
-                    loading={loading}
+                    loading={newUserLoading}
                     loadingPosition="start"
                     startIcon={<SaveIcon />}
                     variant="contained"
