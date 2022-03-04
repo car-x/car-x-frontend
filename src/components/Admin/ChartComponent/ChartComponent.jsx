@@ -139,7 +139,7 @@ const ChartComponent = ({
             chartType={chartType}
             xAxis={xAxis}
             yAxis={yAxis}
-            CartesianGridEnable={chartType !== 'Area'}
+            CartesianGridEnable={true}
             TooltipEnable
             LegendEnable={chartType !== 'Area'}
             chartAxisEnable={true}

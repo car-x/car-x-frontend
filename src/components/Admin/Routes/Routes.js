@@ -13,6 +13,8 @@ const SensorComponent = lazy(() => import('./../Sensor/Sensor'));
 const ControllerComponent = lazy(() => import('../ControllerComponent/ControllerComponent'));
 const Accounts = lazy(() => import('./../Accounts/Accounts'));
 const Profile = lazy(() => import('./../Profile/Profile'));
+const AdvancedView = lazy(() => import('./../AdvancedView/AdvancedView'));
+const MapComponent = lazy(() => import('./../MapComponent/MapComponent'));
 
 const MyRoutes = (props) => {
   let history = useHistory();
@@ -43,7 +45,11 @@ const MyRoutes = (props) => {
                 </Route>
               )}
 
+              <Route path={`${path}/advanced`}>
+                <AdvancedView sensors={props.routes?.find(r => r.name === 'Sensors')['sensors']} />
+              </Route>
               <Route path={`${path}/controls`}><ControllerComponent controls={props.controls} /></Route>
+              <Route path={`${path}/map`} component={MapComponent} />
               <Route path={`${path}/accounts`} component={Accounts} />
               <Route path={`${path}/profile`} component={Profile} />
 

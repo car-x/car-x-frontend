@@ -6,6 +6,8 @@ import {
   Group,
   AppSettingsAlt,
   ManageAccounts,
+  Compare,
+  PersonPinCircle,
   // Sensors,
 } from '@mui/icons-material'
 
@@ -77,6 +79,16 @@ const Admin = () => {
           label: 'Speed',
         },
       ],
+    },
+    {
+      name: 'Advanced View',
+      path: '/advanced',
+      icon: <Compare />,
+    },
+    {
+      name: 'Map',
+      path: '/map',
+      icon: <PersonPinCircle />,
     },
     {
       name: 'Controls',
