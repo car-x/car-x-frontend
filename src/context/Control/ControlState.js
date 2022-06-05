@@ -11,7 +11,7 @@ const ControlState = (props) => {
     led1: false,
     led2: false,
     led3: false,
-    led4: false
+    sm1: 0
   });
   const [loading, setLoading] = useState(false)
 
@@ -40,18 +40,31 @@ const ControlState = (props) => {
     user && f();
   }, [user, socket]);
 
-  const handleChange = (e) => {
+  const handleChange = (e, sliderValue) => {
+    console.log(e, sliderValue);
 
     const f = async () => {
       setLoading(true)
       try {
-        const formData = {
-          APIkey: user?.APIkey,
-          userId: user?.userId,
-          userName: user?.name,
-          controlName: e.target.name,
-          controlType: e.target.checked
-        };
+        let formData = {};
+        if (e.target.name === 'led1' || e.target.name === 'led2' || e.target.name === 'led3' || e.target.name === 'led4') {
+
+          formData = {
+            APIkey: user?.APIkey,
+            userId: user?.userId,
+            userName: user?.name,
+            controlName: e.target.name,
+            controlType: e.target.checked
+          };
+        } else {
+          formData = {
+            APIkey: user?.APIkey,
+            userId: user?.userId,
+            userName: user?.name,
+            controlName: 'sm1',
+            controlType: sliderValue
+          };
+        }
         // console.log('Form Data', formData);
         await postControl(formData);
 

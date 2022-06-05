@@ -13,6 +13,7 @@ import {
   IconButton,
   Fade,
   CircularProgress,
+  Slider,
 } from '@mui/material'
 import { Lightbulb } from '@mui/icons-material'
 import UserContext from './../../../context/User/UserContext'
@@ -116,7 +117,11 @@ const ControllerComponent = (props) => {
   let control = useContext(ControlContext)
 
   let [controlMessage, setControlMessage] = useState(null)
+  const [sliderValue, setSliderValue] = useState(control.switchStates['sm1'])
 
+  const sliderChange = (e, newVal) => {
+    setSliderValue(newVal)
+  }
   const viewerHandle = () => {
     setControlMessage(
       "You can't control! Please contact the Owner/Master user."
@@ -173,18 +178,42 @@ const ControllerComponent = (props) => {
                   >
                     <CircularProgress />
                   </Fade>
-                  <Switch
-                    size="medium"
-                    // style={{ width: 62 }}
-                    className={classes.Switch}
-                    checked={control.switchStates[c.name]}
-                    onChange={
-                      user?.userType === 'master' || user?.userType === 'owner'
-                        ? control.handleChange
-                        : viewerHandle
-                    }
-                    name={c.name}
-                  />
+                  {c.type === 'button' ? (
+                    <Switch
+                      size="medium"
+                      // style={{ width: 62 }}
+                      className={classes.Switch}
+                      checked={control.switchStates[c.name]}
+                      onChange={
+                        user?.userType === 'master' ||
+                        user?.userType === 'owner'
+                          ? control.handleChange
+                          : viewerHandle
+                      }
+                      name={c.name}
+                    />
+                  ) : (
+                    <Slider
+                      min={0}
+                      max={180}
+                      aria-label="Default"
+                      name={c.name}
+                      onChange={
+                        user?.userType === 'master' ||
+                        user?.userType === 'owner'
+                          ? sliderChange
+                          : viewerHandle
+                      }
+                      onChangeCommitted={(e) =>
+                        user?.userType === 'master' ||
+                        user?.userType === 'owner'
+                          ? control.handleChange(e, sliderValue)
+                          : viewerHandle
+                      }
+                      value={control.switchStates[c.name]}
+                      valueLabelDisplay="auto"
+                    />
+                  )}
                 </div>
                 <Typography
                   variant="subtitle1"

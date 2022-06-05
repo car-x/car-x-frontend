@@ -206,8 +206,10 @@ const Dashboard = (props) => {
                 <Grid item xs={12} md={3} key={c.name}>
                   {control.switchStates ? (
                     <DashboardSwitch
+                      type={c.type}
                       heading={c.heading}
                       checked={control.switchStates[c.name]}
+                      value={control.switchStates[c.name]}
                       handleChange={
                         user?.userType === 'master' ||
                         user?.userType === 'owner'

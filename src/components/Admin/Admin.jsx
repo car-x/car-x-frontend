@@ -115,24 +115,28 @@ const Admin = () => {
     {
       heading: 'LED 1',
       name: 'led1',
+      type: 'button',
       details:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem?',
     },
     {
       heading: 'LED 2',
       name: 'led2',
+      type: 'button',
       details:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem?',
     },
     {
       heading: 'LED 3',
       name: 'led3',
+      type: 'button',
       details:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem?',
     },
     {
-      heading: 'LED 4',
-      name: 'led4',
+      heading: 'Stepper Motor 1',
+      name: 'sm1',
+      type: 'slider',
       details:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem?',
     },
