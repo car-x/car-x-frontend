@@ -15,7 +15,7 @@ import {
   CircularProgress,
   Slider,
 } from '@mui/material'
-import { Lightbulb } from '@mui/icons-material'
+import { BakeryDining, Lightbulb } from '@mui/icons-material'
 import UserContext from './../../../context/User/UserContext'
 import ControlContext from './../../../context/Control/ControlContext'
 
@@ -160,12 +160,23 @@ const ControllerComponent = (props) => {
                     className={classes.controllerTitle}
                   >
                     <IconButton>
-                      <Lightbulb
-                        style={{
-                          color: control.switchStates[c.name] ? 'gold' : 'gray',
-                        }}
-                        fontSize="large"
-                      />
+                      {c.type === 'button' ? (
+                        <Lightbulb
+                          style={{
+                            color: control.switchStates[c.name]
+                              ? 'gold'
+                              : 'gray',
+                          }}
+                          fontSize="large"
+                        />
+                      ) : (
+                        <BakeryDining
+                          style={{
+                            color: '#0000FF',
+                          }}
+                          fontSize="large"
+                        />
+                      )}
                     </IconButton>
                     {c.heading}
                   </Typography>

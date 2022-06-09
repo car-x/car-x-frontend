@@ -61,7 +61,7 @@ class MapComponent extends Component {
     return (
       // Important! Always set the container height explicitly
       <>
-        <div style={{ height: '70vh', width: '100%' }}>
+        <div style={{ height: '100vh', width: '100%' }}>
           <GoogleMapReact
             bootstrapURLKeys={{
               key: 'AIzaSyASG0ZEZRtavkRhlxvSu7ocLp7EUJ09fDc',

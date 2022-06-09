@@ -2,7 +2,7 @@ import React from 'react'
 import { useTheme } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
 import { Paper, Slider, Switch, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -32,6 +32,10 @@ const DashboardSwitch = ({
   const theme = useTheme()
   const classes = useStyles(theme)
   const [sliderValue, setSliderValue] = useState(value)
+
+  useEffect(() => {
+    setSliderValue(value)
+  }, [value])
 
   const sliderChange = (e, newVal) => {
     setSliderValue(newVal)

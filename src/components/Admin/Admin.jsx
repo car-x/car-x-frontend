@@ -48,22 +48,6 @@ const Admin = () => {
             },
           ],
         },
-        {
-          name: 'Speed',
-          title: 'Speed Sensor',
-          path: '/speed',
-          icon: '',
-          headCells: [
-            {
-              name: 'time',
-              label: 'Time',
-            },
-            {
-              name: 'speed',
-              label: 'Speed',
-            },
-          ],
-        },
       ],
       tableHeadCells: [
         {
@@ -73,10 +57,6 @@ const Admin = () => {
         {
           name: 'temp',
           label: 'Temperature',
-        },
-        {
-          name: 'speed',
-          label: 'Speed',
         },
       ],
     },
@@ -134,7 +114,7 @@ const Admin = () => {
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, voluptatem?',
     },
     {
-      heading: 'Stepper Motor 1',
+      heading: 'Servo Motor',
       name: 'sm1',
       type: 'slider',
       details:

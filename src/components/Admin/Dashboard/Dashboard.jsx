@@ -327,7 +327,7 @@ const Dashboard = (props) => {
           </Grid>
           <Grid item xs={12}>
             <Paper width="100%" style={{ minHeight: 200 }}>
-              Car Details
+              System Details
             </Paper>
           </Grid>
         </Grid>
